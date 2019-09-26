@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 
 const router = express.Router();
 
@@ -37,7 +36,7 @@ function loadMockBlogs(){
 
 //------------ routes
 
-// /blogs/
+// INDEX /blogs/
 router.get("/", function(req, res){
     Blog.find({}, (err, loadedBlogs)=>{
         if(err) return console.log().call(console, "Error when loading mock blogs: " + err)
@@ -45,6 +44,28 @@ router.get("/", function(req, res){
         res.render("index", {blogs: loadedBlogs , msg: "Posts loaded from db"});
     });  
 });
+
+// NEW /blogs/new
+router.get("/new", (req, res)=>{
+    res.render("new");
+})
+
+// CREATE
+router.post("/", (req, res)=>{
+    const blog = req.body.blog;
+    console.log(blog);
+    
+    Blog.create(blog, (err, savedBlog)=>{
+        if(err) {
+            return console.log().call(console, "Error when saving blog " + blog + "; " + err)
+        }
+        else {
+            res.redirect("/blogs");
+        }
+    });
+
+
+})
 
 
 module.exports = router;
