@@ -6,7 +6,7 @@ var logger = require('morgan');
 var bodyParser = require("body-parser");
 
 // ROUTERS
-const postsRouter = require("./routes/posts.js"); 
+const blogsRouter = require("./routes/blogs.js"); 
 
 var app = express();
 
@@ -21,10 +21,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: 'true' })); // const requestBodyStr = JSON.stringify(req.body);
 
-app.use("/posts", postsRouter);
+app.use("/blogs", blogsRouter);
 
 app.get("/", (req, res)=>{
-  res.render("landing")
+  res.render("landing");
 })
 
 // catch 404 and forward to error handler
