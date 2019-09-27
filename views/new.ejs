@@ -1,13 +1,25 @@
 <% include ./partials/header %>
-<br>
-<br>
-<h1>Add new post</h1>
 
-<form action="/blogs" method="post">
-    <input type="text" name="blog[title]" placeholder="title">
-    <input type="text" name="blog[image]" placeholder="image url">
-    <input type="text" name="blog[body]" placeholder="blog text here">
-    <input type="submit">
-</form>
+<div class="ui container main text segment">
+    <div class="ui huge header">New post</div>
+    <form class="ui form" action="/blogs" method="post">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="blog[title]" placeholder="title" required>
+        </div>
+        <div class="field">
+            <label>Image url</label>
+            <input type="text" name="blog[image]" placeholder="image url">
+        </div>
+        <div class="field">
+            <label>Post content</label>
+            <textarea name="blog[body]" placeholder="blog text here" required></textarea>
+        </div>
+        <button class="ui basic green button" type="submit">Add post</button>
+    </form>
+</div>
+
+
+
 
 <% include ./partials/footer %>
