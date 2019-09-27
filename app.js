@@ -1,14 +1,14 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-//var bodyParser = require("body-parser");
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+// var bodyParser = require("body-parser");
 
 // ROUTERS
-const blogsRouter = require("./routes/blogs.js"); 
+const blogsRouter = require('./routes/blogs.js');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,21 +19,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // true for post to work with blog object; replaces body-parser?!
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(bodyParser.urlencoded({ extended: 'true' })); // const requestBodyStr = JSON.stringify(req.body);
+// app.use(bodyParser.urlencoded({ extended: 'true' })); // const requestBodyStr = JSON.stringify(req.body);
 
-app.use("/blogs", blogsRouter);
+app.use('/blogs', blogsRouter);
 
-app.get("/", (req, res)=>{
-  res.render("landing");
-})
+app.get('/', (req, res) => {
+  res.render('landing');
+});
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
