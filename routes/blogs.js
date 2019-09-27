@@ -53,13 +53,13 @@ router.get('/new', (req, res) => {
 });
 
 // CREATE
+// needs sanitization
 router.post('/', (req, res) => {
-  const { blog } = req.body;
-  console.log(blog);
+  req.body.blog.body = req.sanitize(req.body.blog.body);
 
-  Blog.create(blog, (err, savedBlog) => {
+  Blog.create(req.body.blog, (err, savedBlog) => {
     if (err) {
-      return console.log().call(console, `Error when saving blog ${blog}; ${err}`);
+      return console.log().call(console, `Error when saving blog ${req.body.blog}; ${err}`);
     }
     console.log(`Has saved blog: \n${savedBlog}`);
 
@@ -77,6 +77,45 @@ router.get('/:id', (req, res) => {
       return console.log().call(console, `Error when retrieving blog with id ${req.params.id}; ${err}`);
     }
     res.render('show', { blog: foundBlog });
+  });
+});
+
+// EDIT
+// /blogs/:id/edit
+router.get('/:id/edit', (req, res) => {
+  Blog.findById(req.params.id, (err, foundBlog) => {
+    if (err) {
+      return console.log().call(console, `Error when retrieving blog with id ${req.params.id}; ${err}`);
+    }
+    res.render('edit', { blog: foundBlog });
+  });
+});
+
+// UPDATE
+// PUT /blogs/:id
+// needs sanitization
+router.put('/:id', (req, res) => { // PUT uses this part of query string: _method=PUT
+  req.body.blog.body = req.sanitize(req.body.blog.body); // object destructuring: same as req.body.blog
+  const blogId = req.params.id;
+
+  Blog.findByIdAndUpdate(blogId, req.body.blog, (err, updatedBlog) => {
+    if (err) {
+      return console.log().call(console, `Error when retrieving blog ${updatedBlog}; ${err}`);
+    }
+    res.redirect(`/blogs/${blogId}`);
+  });
+});
+
+// DESTROY
+// DELETE /blogs/:id
+router.delete('/:id', (req, res) => {
+  const blogId = req.params.id;
+
+  Blog.findByIdAndDelete(blogId, (err) => {
+    if (err) {
+      return console.log().call(console, `Error when deleting blog with id ${blogId}. ${err}`);
+    }
+    res.redirect('/blogs');
   });
 });
 

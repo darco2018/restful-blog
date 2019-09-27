@@ -21,7 +21,7 @@
             <div class="content">
                 <span><%= blog.date.toDateString() %></span>
                 <div class="description">
-                    <p><%- blog.body.substring(0, 80) %>...
+                    <p><%- blog.body > 100 ? blog.body.substring(0, 99) : blog.body %>...
                         <span><a href="/blogs/<%= blog._id %>">Read more</a></span>
                     </p>
                 </div>

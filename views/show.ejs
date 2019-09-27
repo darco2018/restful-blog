@@ -7,15 +7,19 @@
             <img class="ui rouded image" src="<%= blog.image %>">
             <div class="content">
                 <!-- moment.js will give you more possibilites of formatting -->
-                <span><%= blog.date.toDateString() %></span>
-                <div class="description">
-                    <!-- dash below enables not escaped text = html -->
-                    <p><%- blog.body %></p>
-                </div>
+                <span><%= blog.date.toDateString() %></span>&nbsp&nbsp
             </div>
+            <div class="description">
+                <!-- dash below enables not escaped text = html -->
+                <p><%- blog.body %></p>
+            </div>
+            <a class="ui basic orange button" href="/blogs/<%= blog._id %>/edit">Edit</a> <!-- this uses GET by url -->
+            <form id="deleteForm" action="/blogs/<%= blog._id %>?_method=delete" method="POST">
+                <!-- method-override will replace post with delete -->
+                <button class="ui basic red button">Delete</button>
+            </form>
         </div>
     </div>
-</div>
 
 
-<% include ./partials/footer %>
+    <% include ./partials/footer %>
