@@ -3,7 +3,6 @@ module.exports = {
     browser: true,
     es6: true,
     node: true,
-    "jquery": true
   },
   extends: [
     'airbnb-base',
@@ -17,6 +16,6 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    "no-console": 0
+    "no-console": 0,
   },
 };
