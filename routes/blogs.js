@@ -9,17 +9,12 @@ const dbName = 'restful_blog';
 mongoose.connect(`mongodb://localhost:27017/${dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+}); 
+// add on errror msg when connecting
 
-// ----------- create Schema
-const blogSchema = new mongoose.Schema({
-  title: String,
-  image: String,
-  body: String,
-  date: { type: Date, default: Date.now },
-});
+// ----------- import Schema
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Blog = require('../models/blog'); // will break when node.js as theres no
 
 // ----------- mock blogs
 // loadMockBlogs(); // run only once
